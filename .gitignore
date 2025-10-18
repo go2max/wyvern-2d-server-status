@@ -1,3 +1,2 @@
 # Ignore only the serverip.md file in the root folder
-../serverip.md
-../data/wyvern-ips.json
+data/wyvern-ips.json
