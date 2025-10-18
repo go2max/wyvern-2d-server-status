@@ -40,10 +40,19 @@
             </div>
             <p id="player-count" class="text-gray-400 text-sm">Players Online: —</p>
             <p id="last-update" class="text-gray-400 text-xs mt-2">Last update: 0s ago</p>
+
+
         </div>
+
         <button id="open-steam" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
             Launch Wyvern on Steam
         </button>
+        <div id="downtime-history" class="mt-4 text-left w-full">
+            <h2 class="text-sm font-semibold mb-1">Last 5 Downtimes:</h2>
+            <ul id="downtime-list" class="text-xs text-gray-300 space-y-1">
+                <!-- Downtime entries go here -->
+            </ul>
+        </div>
     </main>
 
     <footer class="mt-8 text-gray-500 text-sm">&copy; 2025 GhostTrack Studios</footer>
@@ -53,17 +62,20 @@
         const statusText = document.getElementById("status-text");
         const playerCount = document.getElementById("player-count");
         const lastUpdate = document.getElementById("last-update");
+        const downtimeList = document.getElementById("downtime-list");
 
         const POLL_INTERVAL = 10000; // 10 seconds
         let secondsSinceUpdate = 0;
+        let serverOnline = true; // Track previous state
 
-        // Flash animation
+        // Track last 5 downtimes
+        let downtimeHistory = [];
+
         function flashDot() {
             statusDot.classList.add("flash");
             setTimeout(() => statusDot.classList.remove("flash"), 500);
         }
 
-        // Set online/offline (simulate)
         function setOnline() {
             statusDot.classList.remove("bg-red-500", "animate-pulse");
             statusDot.classList.add("bg-green-500");
@@ -78,32 +90,66 @@
             playerCount.textContent = "Players Online: —";
         }
 
-        // Simulated poll (replace with actual fetch if you later have an API)
+        function recordDowntime(startTime, endTime) {
+            const durationSec = Math.round((endTime - startTime) / 1000);
+            downtimeHistory.unshift({ start: startTime, end: endTime, duration: durationSec });
+            if (downtimeHistory.length > 5) downtimeHistory.pop();
+            renderDowntimes();
+        }
+
+        function renderDowntimes() {
+            downtimeList.innerHTML = "";
+            downtimeHistory.forEach(d => {
+                const li = document.createElement("li");
+                const startStr = new Date(d.start).toLocaleTimeString();
+                li.textContent = `${startStr} — ${d.duration}s`;
+                downtimeList.appendChild(li);
+            });
+        }
+
+        // Simulated poll function
+        let currentDowntimeStart = null;
+
         async function updateStatus() {
             flashDot();
             try {
-                // Simulate server always online
-                setOnline();
+                // Replace this with your real server check logic
+                const isOnline = true; // Example: always online
 
-                // If you add a real HTTP endpoint, replace above with:
-                // const res = await fetch("https://your-api.com/status");
-                // const data = await res.json();
-                // if(data.online){ setOnline(); } else { setOffline(); }
-
+                if (isOnline) {
+                    if (!serverOnline && currentDowntimeStart) {
+                        // Server just came back online
+                        const end = new Date();
+                        recordDowntime(currentDowntimeStart, end);
+                        currentDowntimeStart = null;
+                    }
+                    setOnline();
+                } else {
+                    if (serverOnline) {
+                        // Server just went offline
+                        currentDowntimeStart = new Date();
+                    }
+                    setOffline();
+                }
+                serverOnline = isOnline;
             } catch (e) {
                 console.error("Error checking server:", e);
                 setOffline();
+                if (serverOnline) {
+                    currentDowntimeStart = new Date();
+                    serverOnline = false;
+                }
             }
             secondsSinceUpdate = 0;
         }
 
-        // Counter for seconds since last update
+        // Seconds counter for last update
         setInterval(() => {
             secondsSinceUpdate++;
             lastUpdate.textContent = `Last update: ${secondsSinceUpdate}s ago`;
         }, 1000);
 
-        // Initial update and polling
+        // Polling
         updateStatus();
         setInterval(updateStatus, POLL_INTERVAL);
 
