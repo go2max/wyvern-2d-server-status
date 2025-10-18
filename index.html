@@ -4,12 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wyvern Server Status — GhostTrack</title>
+
+    <title>Wyvern Server Status & Online Players — GhostTrack</title>
     <meta name="description"
-        content="Check Wyvern MMORPG server status in real-time. Discover Wyvern's unique features, 17 player races, 100+ spells, quests, cross-platform support, free-to-play gameplay, and more.">
+        content="Check Wyvern MMORPG server status in real-time. View online players, recent downtimes, and discover Wyvern's 17 races, 100+ spells, quests, cross-platform gameplay, and guides.">
     <meta name="keywords"
-        content="Wyvern MMORPG, Wyvern server status, online Wyvern game, Wyvern features, Wyvern free-to-play, Wyvern mobile, Wyvern Steam, Wyvern MMO, Wyvern quests, Wyvern cross-platform, Wyvern spells, Wyvern guilds">
+        content="Wyvern MMORPG, Wyvern server status, Wyvern online players, Wyvern quests, Wyvern free-to-play, Wyvern Steam, Wyvern cross-platform, Wyvern gameplay, Wyvern guides">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Wyvern Server Status — GhostTrack">
+    <meta property="og:description"
+        content="Check Wyvern MMORPG server status in real-time and see online players. Stay updated on Wyvern quests, features, and community.">
+    <meta property="og:image" content="https://ghosttrack.com/img/wyvern-banner.png">
+    <meta property="og:url" content="https://ghosttrack.com/wyvern-server-status">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Wyvern Server Status — GhostTrack">
+    <meta name="twitter:description"
+        content="Check Wyvern MMORPG server status in real-time and see online players. Stay updated on Wyvern quests, features, and community.">
+    <meta name="twitter:image" content="https://ghosttrack.com/img/wyvern-banner.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         @keyframes flash {
 
@@ -27,101 +45,134 @@
             animation: flash 0.5s ease-in-out;
         }
     </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Wyvern",
+      "url": "https://ghosttrack.com/wyvern-server-status",
+      "applicationCategory": "MMORPG",
+      "operatingSystem": ["Windows", "Mac", "Linux", "iOS", "Android"],
+      "gamePlatform": ["PC", "Mobile"],
+      "description": "Real-time Wyvern server status and online player count. Discover Wyvern's unique races, quests, spells, guilds, and free-to-play gameplay.",
+      "author": {
+        "@type": "Organization",
+        "name": "GhostTrack Studios"
+      }
+    }
+    </script>
 </head>
 
-<body class="bg-gray-900 text-gray-100 flex flex-col items-center justify-center min-h-screen">
-    <img src="logo.ico" alt="Wyvern Banner" class="mb-4">
+<body class="bg-gray-900 text-gray-100 flex flex-col items-center justify-start min-h-screen">
 
-    <header class="mb-8 text-center">
-        <h1 class="text-4xl font-bold mb-2">Wyvern Server Status</h1>
-        <a href="https://ghosttrack.com" target="_blank" class="text-blue-400 hover:underline">Visit GhostTrack.com</a>
-        <br><br>
-        <a href="https://store.steampowered.com/app/1541710/Wyvern/" target="_blank"
-            class="text-blue-400 hover:underline">See Game on Steam!</a>
-        <br><br>
-        <a href="https://www.reddit.com/r/wyvernrpg/" target="_blank" class="text-blue-400 hover:underline">Read more in
-            Reddit</a>
-        <br><br>
-        <a href="https://discord.com/invite/c2BcUu2" target="_blank" class="text-blue-400 hover:underline">Join the
-            Discord Server!</a>
-        <br><br>
-        <a href="https://wiki.wyvernsource.com/index.php/Main_Page" target="_blank"
-            class="text-blue-400 hover:underline">Read up on the Wiki!</a>
+    <header class="text-center mt-6">
+        <img src="logo.ico" alt="Wyvern Banner" class="mb-4 w-48 h-auto mx-auto">
+        <h1 class="text-4xl font-bold mb-2">Wyvern Server Status & Online Players</h1>
+        <p class="text-gray-400 mb-4">Real-time server status, downtime history, and community links for Wyvern MMORPG.
+        </p>
+        <div class="space-y-2">
+            <a href="https://ghosttrack.com" target="_blank" class="text-blue-400 hover:underline">Visit
+                GhostTrack.com</a>
+            <a href="https://store.steampowered.com/app/1541710/Wyvern/" target="_blank"
+                class="text-blue-400 hover:underline">See Game on Steam</a>
+            <a href="https://www.reddit.com/r/wyvernrpg/" target="_blank" class="text-blue-400 hover:underline">Reddit
+                Community</a>
+            <a href="https://discord.com/invite/c2BcUu2" target="_blank" class="text-blue-400 hover:underline">Join
+                Discord</a>
+            <a href="https://wiki.wyvernsource.com/index.php/Main_Page" target="_blank"
+                class="text-blue-400 hover:underline">Wyvern Wiki</a>
+        </div>
     </header>
 
-    <main class="bg-gray-800 rounded-2xl shadow-lg p-8 text-center w-80 mb-8">
-        <div id="status-box" class="flex flex-col items-center mb-6">
-            <div class="flex items-center gap-2 mb-2">
+    <main class="bg-gray-800 rounded-2xl shadow-lg p-8 text-center w-80 mt-8 mb-8">
+        <div id="status-box" class="flex flex-col items-center gap-2 mb-6">
+            <div class="flex items-center gap-2">
                 <div id="status-dot" class="w-4 h-4 rounded-full bg-gray-500"></div>
                 <span id="status-text" class="text-lg font-semibold">Connecting...</span>
             </div>
-            <p id="player-count" class="text-gray-400 text-sm">Players Online: —</p>
-            <p id="last-update" class="text-gray-400 text-xs mt-2">Last update: 0s ago</p>
+            <p id="player-count" class="text-gray-400 text-md">Players Online: —</p>
+            <p class="text-gray-400 text-xs italic">Please note: the player count may temporarily be inaccurate.
+                Online/Offline status is reliable.</p>
+            <p id="last-update" class="text-gray-400 text-xs">Last update: 0s ago</p>
         </div>
 
         <button id="open-steam" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
             Launch Wyvern on Steam
         </button>
 
-        <div id="downtime-history" class="mt-4 text-left w-full">
-            <h2 class="text-sm font-semibold mb-1">Last 5 Downtimes:</h2>
+        <div id="downtime-history" class="mt-6 text-left w-full">
+            <h2 class="text-sm font-semibold mb-1">Last 5 Downtimes</h2>
             <ul id="downtime-list" class="text-xs text-gray-300 space-y-1"></ul>
         </div>
     </main>
 
-    <!-- Wyvern SEO / Game Description Section -->
+    <!-- SEO / Game Info Section -->
     <section class="max-w-4xl mx-auto text-gray-200 text-left px-4 sm:px-6 lg:px-0 space-y-6">
+
+        <h2 class="text-2xl font-bold">Frequently Asked Questions</h2>
+        <details>
+            <summary>How do I check Wyvern server status?</summary>
+            <p>This page provides live Wyvern server status and online player count, updated every 10 seconds.</p>
+        </details>
+        <details>
+            <summary>Can I play Wyvern on mobile devices?</summary>
+            <p>Yes! Wyvern supports iOS and Android with full cross-platform multiplayer.</p>
+        </details>
+        <details>
+            <summary>Is Wyvern free-to-play?</summary>
+            <p>Yes. Almost all content is free, with optional cosmetic or convenience purchases.</p>
+        </details>
+        <details>
+            <summary>Where can I find Wyvern guides and community resources?</summary>
+            <p>Check the <a href="https://wiki.wyvernsource.com/index.php/Main_Page"
+                    class="text-blue-400 hover:underline">Wyvern Wiki</a>, Reddit, or Discord for guides and community
+                discussions.</p>
+        </details>
+
         <h2 class="text-2xl font-bold">About Wyvern</h2>
-        <p>Wyvern is a command-oriented MMORPG with hundreds of commands for social actions, emotes, crafting, inventory
-            management, and more. Players can bind commands to hotkeys or create custom aliases and macros for flexible
-            gameplay.</p>
+        <p>Wyvern is a deep, command-oriented MMORPG with hundreds of commands for social actions, crafting, inventory
+            management, and more. Players can create custom aliases, macros, and hotkeys for flexible gameplay. With a
+            free-to-play model, nearly all content is accessible to everyone.</p>
 
         <h2 class="text-2xl font-bold">Features</h2>
         <ul class="list-disc list-inside space-y-1">
             <li>17 unique player races: humans, elves, fighting cats, giants, vampires, and more</li>
             <li>Over 50 quests with unique rewards</li>
-            <li>Builder Mode (level editor) for custom areas</li>
-            <li>Guild system to specialize and enhance abilities</li>
-            <li>100+ unique spells and magic items</li>
+            <li>Builder Mode for custom areas and adventures</li>
+            <li>Guild system to specialize abilities</li>
+            <li>100+ unique spells and magical items</li>
             <li>Hundreds of playable areas: towns, dungeons, ruins, underwater realms</li>
             <li>500+ monsters with weapons, spells, and summoning abilities</li>
-            <li>Random Dungeon system for endless adventure</li>
-            <li>Player groups, support roles, and adventuring facilities</li>
-            <li>Raid bosses, Live Quests, and other endgame events</li>
-            <li>Custom character images at level 25</li>
-            <li>Friendly, active community</li>
+            <li>Random Dungeon system for endless exploration</li>
+            <li>Raid bosses, live quests, and other endgame events</li>
         </ul>
 
-        <h2 class="text-2xl font-bold">Physics & Gameplay</h2>
+        <h2 class="text-2xl font-bold">Gameplay & Mechanics</h2>
         <ul class="list-disc list-inside space-y-1">
-            <li>2D tile-based game with rich lighting and day/night cycles</li>
-            <li>Missiles, projectiles, area-of-effect spells</li>
+            <li>2D tile-based game with dynamic lighting and day/night cycles</li>
+            <li>Missiles, projectiles, and area-of-effect spells</li>
             <li>Interactive objects: pushable gates, traps, vehicles</li>
             <li>Multiple damage types, resistances, and vulnerabilities</li>
             <li>Side-scroller engine for certain quests and areas</li>
-            <li>Sophisticated camera system for detection and scrying</li>
-            <li>Realistic body-part system for equipment layering</li>
-            <li>Thousands of objects supporting economy, quests, and guilds</li>
+            <li>Advanced camera system for detection and scrying</li>
+            <li>Realistic body-part system for layered equipment</li>
+            <li>Economy, quests, and guild systems supported by thousands of objects</li>
         </ul>
 
         <h2 class="text-2xl font-bold">Cross-Platform Support</h2>
-        <p>Wyvern runs on Windows, Mac, Linux (non-Steam clients), and mobile platforms (iOS & Android). All platforms
-            share
-            the same servers, enabling seamless cross-play. Accounts can be linked across Steam, Gmail, Apple, or
-            Facebook.
-        </p>
-
-        <h2 class="text-2xl font-bold">Free-to-Play Model</h2>
-        <p>Wyvern is free-to-play with optional in-game purchases (Wyvern Crowns) for convenience, not power. Nearly all
-            content is accessible to free players. VIP perks are minor and focus on quality-of-life improvements.</p>
+        <p>Wyvern runs on Windows, Mac, Linux (non-Steam), iOS, and Android. All platforms share the same servers for
+            seamless multiplayer. Accounts can be linked via Steam, Gmail, Apple, or Facebook.</p>
 
         <h2 class="text-2xl font-bold">Learning Curve</h2>
-        <p>Wyvern has a steep learning curve due to its depth and decades of development. A tutorial exists, but
-            patience
-            rewards players with an immersive and challenging MMORPG experience.</p>
+        <p>Wyvern has a steep learning curve. Tutorials exist, but mastery rewards players with an immersive MMORPG
+            experience.</p>
     </section>
 
-    <footer class="mt-8 text-gray-500 text-sm">&copy; 2025 GhostTrack Studios</footer>
+    <footer class="mt-12 text-gray-500 text-sm text-center pb-6">
+        &copy; 2025 GhostTrack Studios
+    </footer>
 
     <script>
         const statusDot = document.getElementById("status-dot");
@@ -177,22 +228,17 @@
             try {
                 const res = await fetch("https://wyvern-server-status.williamuland12.workers.dev/");
                 const data = await res.json();
-
-                // Find the first online server
                 const onlineServer = data.find(s => s.online);
                 const isOnline = !!onlineServer;
 
                 if (isOnline) {
                     if (!serverOnline && currentDowntimeStart && currentOfflineIP) {
-                        // Record downtime with IP
                         recordDowntime(currentDowntimeStart, new Date(), currentOfflineIP);
                         currentDowntimeStart = null;
                         currentOfflineIP = null;
                     }
                     setOnline();
-                    console.log("Wyvern server online:", onlineServer.ip);
                 } else {
-                    // Pick the first offline server IP for display
                     const offlineServer = data.find(s => !s.online);
                     if (serverOnline) {
                         currentDowntimeStart = new Date();
@@ -200,7 +246,6 @@
                     }
                     setOffline();
                 }
-
                 serverOnline = isOnline;
             } catch (e) {
                 console.error("Error fetching server status:", e);
@@ -211,7 +256,6 @@
                 }
                 serverOnline = false;
             }
-
             secondsSinceUpdate = 0;
         }
 
