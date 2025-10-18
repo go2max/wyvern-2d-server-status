@@ -138,7 +138,6 @@
         let serverOnline = true;
         let downtimeHistory = [];
         let currentDowntimeStart = null;
-        let candidateIPs = [];
 
         function flashDot() {
             statusDot.classList.add("flash");
@@ -175,53 +174,16 @@
             });
         }
 
-        // Validate public IPv4
-        function isValidPublicIP(ip) {
-            const regex = /^(?!0)(?!127)(?!10)(?!172\.(1[6-9]|2[0-9]|3[0-1]))(?!192\.168)([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])(\.([0-9]{1,3})){3}$/;
-            return regex.test(ip);
-        }
-
-        // Fetch candidate IPs from JSON hosted in GitHub Pages
-        async function fetchCandidateIPs() {
-            try {
-                const res = await fetch("/data/wyvern-ips.json");
-                const data = await res.json();
-                candidateIPs = data.ips.filter(isValidPublicIP);
-            } catch (e) {
-                console.error("Failed to fetch candidate IPs:", e);
-            }
-        }
-
-        // Check which IP is online (first responsive one)
-        async function findOnlineIP() {
-            for (const ip of candidateIPs) {
-                try {
-                    // Attempt a HEAD request to check if IP is alive (replace with real port if needed)
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 3000);
-                    await fetch(`https://${ip}`, { method: "HEAD", signal: controller.signal });
-                    clearTimeout(timeoutId);
-                    return ip; // First responsive IP
-                } catch {
-                    continue; // Try next IP
-                }
-            }
-            return null;
-        }
-
         async function updateStatus() {
             flashDot();
             try {
-                const ip = await findOnlineIP();
-                const isOnline = ip !== null;
-
+                const isOnline = true; // replace with real server check
                 if (isOnline) {
                     if (!serverOnline && currentDowntimeStart) {
                         recordDowntime(currentDowntimeStart, new Date());
                         currentDowntimeStart = null;
                     }
                     setOnline();
-                    console.log("Wyvern server IP:", ip);
                 } else {
                     if (serverOnline) currentDowntimeStart = new Date();
                     setOffline();
@@ -236,20 +198,14 @@
             secondsSinceUpdate = 0;
         }
 
-        // Update last update timer
         setInterval(() => {
             secondsSinceUpdate++;
             lastUpdate.textContent = `Last update: ${secondsSinceUpdate}s ago`;
         }, 1000);
 
-        // Initial setup
-        (async () => {
-            await fetchCandidateIPs();
-            await updateStatus();
-            setInterval(updateStatus, POLL_INTERVAL);
-        })();
+        updateStatus();
+        setInterval(updateStatus, POLL_INTERVAL);
 
-        // Steam launch button
         document.getElementById("open-steam").addEventListener("click", () => {
             window.location.href = "steam://rungameid/1541710";
         });
