@@ -1,2 +1,2 @@
-git rm --cached serverip.md
-git commit -m "Stop tracking serverip.md"
+# Ignore only the serverip.md file in the root folder
+/serverip.md
