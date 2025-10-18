@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyvern Server Status — GhostTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        .flash {
+            animation: flash 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100 flex flex-col items-center justify-center min-h-screen">
+
+    <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold mb-2">Wyvern Server Status</h1>
+        <a href="https://ghosttrack.com" target="_blank" class="text-blue-400 hover:underline">Visit GhostTrack.com</a>
+    </header>
+
+    <main class="bg-gray-800 rounded-2xl shadow-lg p-8 text-center w-80">
+        <div id="status-box" class="flex flex-col items-center">
+            <div class="flex items-center gap-2 mb-2">
+                <div id="status-dot" class="w-4 h-4 rounded-full bg-gray-500"></div>
+                <span id="status-text" class="text-lg font-semibold">Connecting...</span>
+            </div>
+            <p id="player-count" class="text-gray-400 text-sm">Players Online: —</p>
+            <p id="last-update" class="text-gray-400 text-xs mt-2">Last update: 0s ago</p>
+        </div>
+        <button id="open-steam" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
+            Launch Wyvern on Steam
+        </button>
+    </main>
+
+    <footer class="mt-8 text-gray-500 text-sm">&copy; 2025 GhostTrack Studios</footer>
+
+    <script>
+        const statusDot = document.getElementById("status-dot");
+        const statusText = document.getElementById("status-text");
+        const playerCount = document.getElementById("player-count");
+        const lastUpdate = document.getElementById("last-update");
+
+        const POLL_INTERVAL = 10000; // 10 seconds
+        let secondsSinceUpdate = 0;
+
+        // Flash animation
+        function flashDot() {
+            statusDot.classList.add("flash");
+            setTimeout(() => statusDot.classList.remove("flash"), 500);
+        }
+
+        // Set online/offline (simulate)
+        function setOnline() {
+            statusDot.classList.remove("bg-red-500", "animate-pulse");
+            statusDot.classList.add("bg-green-500");
+            statusText.textContent = "Online";
+            playerCount.textContent = "Players Online: —";
+        }
+
+        function setOffline() {
+            statusDot.classList.remove("bg-green-500");
+            statusDot.classList.add("bg-red-500", "animate-pulse");
+            statusText.textContent = "Offline";
+            playerCount.textContent = "Players Online: —";
+        }
+
+        // Simulated poll (replace with actual fetch if you later have an API)
+        async function updateStatus() {
+            flashDot();
+            try {
+                // Simulate server always online
+                setOnline();
+
+                // If you add a real HTTP endpoint, replace above with:
+                // const res = await fetch("https://your-api.com/status");
+                // const data = await res.json();
+                // if(data.online){ setOnline(); } else { setOffline(); }
+
+            } catch (e) {
+                console.error("Error checking server:", e);
+                setOffline();
+            }
+            secondsSinceUpdate = 0;
+        }
+
+        // Counter for seconds since last update
+        setInterval(() => {
+            secondsSinceUpdate++;
+            lastUpdate.textContent = `Last update: ${secondsSinceUpdate}s ago`;
+        }, 1000);
+
+        // Initial update and polling
+        updateStatus();
+        setInterval(updateStatus, POLL_INTERVAL);
+
+        // Steam button
+        document.getElementById("open-steam").addEventListener("click", () => {
+            window.location.href = "steam://rungameid/1541710";
+        });
+    </script>
+
+</body>
+
+</html>
