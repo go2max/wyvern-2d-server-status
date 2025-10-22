@@ -32,29 +32,48 @@
 <body class="bg-gray-900 text-gray-100 flex flex-col items-center justify-center min-h-screen">
     <img src="logo.png" alt="Wyvern Banner" class="mb-4">
 
-    <header class="mb-8 text-center">
-        <h1 class="text-4xl font-bold mb-2">Wyvern Server Status</h1>
-        <a href="https://ghosttrack.com" target="_blank" class="text-blue-400 hover:underline">Visit
-            GhostTrack.com</a>
-        <br><br>
-        <a href="https://store.steampowered.com/app/1541710/Wyvern/" target="_blank"
-            class="text-blue-400 hover:underline">See
-            Game on Steam!</a>
-        <br><br>
-        <a href="https://www.reddit.com/r/wyvernrpg/" target="_blank" class="text-blue-400 hover:underline">Read
-            more in
-            Reddit</a>
-        <br><br>
-        <a href="https://discord.com/invite/c2BcUu2" target="_blank" class="text-blue-400 hover:underline">Join the
-            Discord Server!</a>
-        <br><br>
-        <a href="https://wiki.wyvernsource.com/index.php/Main_Page" target="_blank"
-            class="text-blue-400 hover:underline">Read up on the Wiki!</a>
-    </header>
+    <nav class="bg-gray-800 rounded-2xl border-b border-gray-700 mb-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <!-- Title - Centered on its own line -->
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-bold text-white">Wyvern Server Status</h1>
+            </div>
 
-    <main class="bg-gray-800 rounded-2xl shadow-lg p-8 text-center w-80 mb-8">
+            <!-- Get It Now Section -->
+            <div class="text-center mb-4">
+                <span class="text-gray-400 text-sm font-semibold uppercase tracking-wide mr-4">Get It Now:</span>
+                <a href="https://ghosttrack.com" target="_blank"
+                    class="text-blue-400 hover:text-blue-300 transition-colors duration-200 pr-4 mr-4 border-r border-gray-600">
+                    GhostTrack
+                </a>
+                <a href="https://store.steampowered.com/app/1541710/Wyvern/" target="_blank"
+                    class="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                    Steam
+                </a>
+            </div>
+
+            <!-- Learn More Section -->
+            <div class="text-center">
+                <span class="text-gray-400 text-sm font-semibold uppercase tracking-wide mr-4">Learn More:</span>
+                <a href="https://www.reddit.com/r/wyvernrpg/" target="_blank"
+                    class="text-blue-400 hover:text-blue-300 transition-colors duration-200 pr-4 mr-4 border-r border-gray-600">
+                    Reddit
+                </a>
+                <a href="https://discord.com/invite/c2BcUu2" target="_blank"
+                    class="text-blue-400 hover:text-blue-300 transition-colors duration-200 pr-4 mr-4 border-r border-gray-600">
+                    Discord
+                </a>
+                <a href="https://wiki.wyvernsource.com/index.php/Main_Page" target="_blank"
+                    class="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                    Wiki
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="bg-gray-800 rounded-2xl shadow-lg p-8 text-center w-80 mb-4">
         <div id="status-box" class="flex flex-col items-center mb-6">
-            <div class="flex items-center gap-2 mb-2">
+            <div class="flex items-center gap-2 mb-4">
                 <div id="status-dot" class="w-4 h-4 rounded-full bg-gray-500"></div>
                 <span id="status-text" class="text-lg font-semibold">Connecting...</span>
             </div>
@@ -63,15 +82,19 @@
         </div>
 
         <button id="open-steam" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition">
-            Launch Wyvern on Steam
+            Launch Wyvern From Steam
         </button>
 
         <div id="downtime-history" class="mt-4 text-left w-full">
-            <h2 class="text-sm font-semibold mb-1">Last 5 Downtimes (This Session):</h2>
-            <p class="text-xs text-gray-500 mb-2">Note: Downtime history resets when you refresh the page</p>
-            <ul id="downtime-list" class="text-xs text-gray-300 space-y-1">
-                <li class="text-gray-500">No downtimes recorded yet</li>
+            <h2 class="text-sm font-semibold mb-1">Last 72 Hours Downtime History:</h2>
+            <p class="text-xs text-gray-500 mb-4">Persistent tracking across all users</p>
+            <div id="ongoing-downtime" class="mb-4 hidden">
+                <p class="text-xs text-orange-400">⚠️ <span id="ongoing-text">Ongoing downtime...</span></p>
+            </div>
+            <ul id="downtime-list" class="text-xs text-gray-300 space-y-1 max-h-40 overflow-y-auto">
+                <li class="text-gray-500">Loading history...</li>
             </ul>
+            <p id="total-downtime" class="text-xs text-gray-400 mt-2"></p>
         </div>
     </main>
 
@@ -79,10 +102,8 @@
     <section class="max-w-4xl mx-auto text-gray-200 text-left px-4 sm:px-6 lg:px-0 space-y-6">
         <h2 class="text-2xl font-bold">About Wyvern</h2>
         <p>Wyvern is a command-oriented MMORPG with hundreds of commands for social actions, emotes, crafting,
-            inventory
-            management, and more. Players can bind commands to hotkeys or create custom aliases and macros for
-            flexible
-            gameplay.</p>
+            inventory management, and more. Players can bind commands to hotkeys or create custom aliases and macros for
+            flexible gameplay.</p>
 
         <h2 class="text-2xl font-bold">Features</h2>
         <ul class="list-disc list-inside space-y-1">
@@ -113,26 +134,20 @@
         </ul>
 
         <h2 class="text-2xl font-bold">Cross-Platform Support</h2>
-        <p>Wyvern runs on Windows, Mac, Linux (non-Steam clients), and mobile platforms (iOS & Android). All
-            platforms
+        <p>Wyvern runs on Windows, Mac, Linux (non-Steam clients), and mobile platforms (iOS & Android). All platforms
             share
             the same servers, enabling seamless cross-play. Accounts can be linked across Steam, Gmail, Apple, or
-            Facebook.
-        </p>
+            Facebook.</p>
 
         <h2 class="text-2xl font-bold">Free-to-Play Model</h2>
-        <p>Wyvern is free-to-play with optional in-game purchases (Wyvern Crowns) for convenience, not power. Nearly
-            all
-            content is accessible to free players. VIP perks are minor and focus on quality-of-life improvements.
-        </p>
+        <p>Wyvern is free-to-play with optional in-game purchases (Wyvern Crowns) for convenience, not power. Nearly all
+            content is accessible to free players. VIP perks are minor and focus on quality-of-life improvements.</p>
 
         <h2 class="text-2xl font-bold">Learning Curve</h2>
         <p>Wyvern has a steep learning curve due to its depth and decades of development. A tutorial exists, but
             patience
             rewards players with an immersive and challenging MMORPG experience.</p>
     </section>
-
-
 
     <footer class="mt-8 text-gray-500 text-sm">&copy; 2025 GhostTrack Studios</footer>
 
@@ -142,14 +157,14 @@
         const playerCount = document.getElementById("player-count");
         const lastUpdate = document.getElementById("last-update");
         const downtimeList = document.getElementById("downtime-list");
+        const ongoingDowntimeDiv = document.getElementById("ongoing-downtime");
+        const ongoingText = document.getElementById("ongoing-text");
+        const totalDowntimeEl = document.getElementById("total-downtime");
 
         const WORKER_URL = 'https://wyvern-server-status.williamuland12.workers.dev';
         const POLL_INTERVAL = 10000;
 
         let secondsSinceUpdate = 0;
-        let wasOnline = null;
-        let currentDowntimeStart = null;
-        let downtimeHistory = [];
 
         function flashDot() {
             statusDot.classList.add("flash");
@@ -165,48 +180,82 @@
             playerCount.textContent = `Players Online: ${totalPlayers}`;
         }
 
-        function recordDowntime(startTime, endTime) {
-            const durationMs = endTime - startTime;
-            const durationSec = Math.round(durationMs / 1000);
-
-            downtimeHistory.unshift({
-                start: startTime,
-                end: endTime,
-                duration: durationSec
-            });
-
-            if (downtimeHistory.length > 5) {
-                downtimeHistory.pop();
-            }
-
-            renderDowntimes();
-        }
-
-        function formatDuration(seconds) {
+        function formatDuration(ms) {
+            const seconds = Math.floor(ms / 1000);
             if (seconds < 60) return `${seconds}s`;
             const mins = Math.floor(seconds / 60);
             const secs = seconds % 60;
             if (mins < 60) return `${mins}m ${secs}s`;
             const hours = Math.floor(mins / 60);
             const remainMins = mins % 60;
-            return `${hours}h ${remainMins}m`;
+            if (hours < 24) return `${hours}h ${remainMins}m`;
+            const days = Math.floor(hours / 24);
+            const remainHours = hours % 24;
+            return `${days}d ${remainHours}h`;
         }
 
-        function renderDowntimes() {
-            if (downtimeHistory.length === 0) {
-                downtimeList.innerHTML = '<li class="text-gray-500">No downtimes recorded yet</li>';
-                return;
-            }
+        function formatDateTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const isToday = date.toDateString() === now.toDateString();
 
-            downtimeList.innerHTML = "";
-            downtimeHistory.forEach(d => {
-                const li = document.createElement("li");
-                const startTime = new Date(d.start).toLocaleTimeString();
-                const endTime = new Date(d.end).toLocaleTimeString();
-                const duration = formatDuration(d.duration);
-                li.innerHTML = `<span class="text-red-400">●</span> ${startTime} → ${endTime} <span class="text-gray-400">(${duration})</span>`;
-                downtimeList.appendChild(li);
-            });
+            if (isToday) {
+                return date.toLocaleTimeString();
+            } else {
+                return date.toLocaleString(undefined, {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+        }
+
+        async function fetchDowntimeHistory() {
+            try {
+                const response = await fetch(`${WORKER_URL}/downtimes`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+
+                // Update ongoing downtime
+                if (data.ongoingDowntime) {
+                    ongoingDowntimeDiv.classList.remove('hidden');
+                    const duration = formatDuration(data.ongoingDowntime.duration);
+                    const startTime = formatDateTime(data.ongoingDowntime.start);
+                    ongoingText.textContent = `Ongoing downtime since ${startTime} (${duration})`;
+                } else {
+                    ongoingDowntimeDiv.classList.add('hidden');
+                }
+
+                // Update downtime list
+                if (data.downtimes && data.downtimes.length > 0) {
+                    downtimeList.innerHTML = "";
+
+                    // Calculate total downtime
+                    let totalMs = data.downtimes.reduce((sum, d) => sum + d.duration, 0);
+                    if (data.ongoingDowntime) {
+                        totalMs += data.ongoingDowntime.duration;
+                    }
+
+                    totalDowntimeEl.textContent = `Total downtime (72h): ${formatDuration(totalMs)}`;
+
+                    data.downtimes.forEach(d => {
+                        const li = document.createElement("li");
+                        const startTime = formatDateTime(d.start);
+                        const endTime = formatDateTime(d.end);
+                        const duration = formatDuration(d.duration);
+                        li.innerHTML = `<span class="text-red-400">●</span> ${startTime} → ${endTime} <span class="text-gray-400">(${duration})</span>`;
+                        downtimeList.appendChild(li);
+                    });
+                } else {
+                    downtimeList.innerHTML = '<li class="text-gray-500">No downtimes in last 72 hours</li>';
+                    totalDowntimeEl.textContent = '';
+                }
+            } catch (error) {
+                console.error("Failed to fetch downtime history:", error);
+                downtimeList.innerHTML = '<li class="text-red-400">Failed to load history</li>';
+            }
         }
 
         async function fetchServerStatus() {
@@ -235,31 +284,10 @@
                     });
                 }
 
-                // Detect state change
-                if (wasOnline !== null) {
-                    if (wasOnline && !anyOnline) {
-                        // Just went offline
-                        currentDowntimeStart = Date.now();
-                    } else if (!wasOnline && anyOnline) {
-                        // Just came back online
-                        if (currentDowntimeStart) {
-                            recordDowntime(currentDowntimeStart, Date.now());
-                            currentDowntimeStart = null;
-                        }
-                    }
-                }
-
-                wasOnline = anyOnline;
                 updateServerUI(anyOnline, totalPlayers);
 
             } catch (error) {
                 console.error("Failed to fetch server status:", error);
-
-                // If we can't reach the worker, assume offline
-                if (wasOnline === null || wasOnline) {
-                    currentDowntimeStart = Date.now();
-                }
-                wasOnline = false;
                 updateServerUI(false, 0);
             }
 
@@ -275,7 +303,10 @@
         // Initial fetch and setup polling
         (async () => {
             await fetchServerStatus();
+            await fetchDowntimeHistory();
+
             setInterval(fetchServerStatus, POLL_INTERVAL);
+            setInterval(fetchDowntimeHistory, 30000); // Update history every 30s
         })();
 
         document.getElementById("open-steam").addEventListener("click", () => {
