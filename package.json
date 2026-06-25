@@ -1,0 +1,1 @@
+{"name":"wyvern-server-status","private":true,"type":"module","scripts":{"test":"node --test","check":"node --check app.js && node --check status.js"}}
